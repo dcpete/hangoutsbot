@@ -15,3 +15,8 @@ aiohttp
 *.jpg
 
 venv
+
+config.json
+cookies.json
+hangupsbot.log
+memory.json*
