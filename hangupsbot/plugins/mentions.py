@@ -291,6 +291,25 @@ def mention(bot, event, *args):
     if hasattr(event, '_external_source'):
         source_name = event._external_source
 
+    """check to see if the mention is a haha"""
+    # check to make sure that the message is only @mentions and a haha
+    textcheck = event.text.lower().split()
+    hahacheck = [word for word in set(textcheck) if word.startswith('@') or bot.call_shared("haha.is_haha", word)]
+    if textcheck == hahacheck:
+        for u in mention_list:
+            user_to_haha = u.id_.chat_id
+            if event.user_id.chat_id != user_to_haha:
+                old_count = bot.user_memory_get(user_to_haha, "haha_count")
+                if old_count is None:
+                    old_count = 0
+                n = int(old_count)
+                bot.user_memory_set(user_to_haha, "haha_count", n + 1)
+                logger.debug("added haha for {}".format(user_to_haha))
+            else:
+                message = "Nice try, {}".format(event.user.full_name.split()[1:])
+                yield from bot.coro_send_message(event.conv_id, message)
+        return
+
     """send @mention alerts"""
     for u in mention_list:
             alert_via_1on1 = True
