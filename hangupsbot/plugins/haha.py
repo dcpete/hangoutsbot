@@ -93,4 +93,5 @@ def scoreboard(bot, event, *args):
     message = "<b>haha scoreboard:</b><br />"
     for (count, name) in lst: 
         message += "{} {}<br />".format(count, name)
+    message += "<br /><i>hail xenu</i>"
     yield from bot.coro_send_message(event.conv_id, message)
