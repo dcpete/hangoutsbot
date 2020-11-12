@@ -891,7 +891,12 @@ def configure_logging(args):
                 'formatter': 'console'
                 },
             'file': {
-                'class': 'logging.FileHandler',
+                # dcp start for rotating log
+                #'class': 'logging.FileHandler',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'maxBytes': 8589934592,
+                'backupCount': 100,
+                # dcp stop edits for rotating log
                 'filename': args.log,
                 'level': log_level,
                 'formatter': 'default',

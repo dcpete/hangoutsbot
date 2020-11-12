@@ -18,5 +18,5 @@ venv
 
 config.json
 cookies.json
-hangupsbot.log
+hangupsbot.log*
 memory.json*
